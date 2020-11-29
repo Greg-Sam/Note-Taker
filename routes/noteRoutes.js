@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { notes } = require('../db')
 
 router.post('/notes', (req, res) => {
-  notes.push(req.body.notes)
+  notes.push(req.body)
   res.sendStatus(200)
 })
 
