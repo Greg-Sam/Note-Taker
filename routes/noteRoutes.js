@@ -10,4 +10,8 @@ router.get('/notes', (req, res) => {
   res.json(notes)
 })
 
+router.delete('/notes/:id', (req, res) => {
+  res.json(notes)
+})
+
 module.exports = router

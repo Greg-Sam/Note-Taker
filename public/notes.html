@@ -28,7 +28,7 @@
       <div class="col-4 list-container">
         <h5>Notes</h5>
         <div class="card" id="card">
-          
+
         </div>
       </div>
       <div class="col-8">
@@ -36,13 +36,13 @@
           <h5>Add New Note</h5>
         </div>
         <div class="row">
-          <input class="note-title" id = "noteTitle" placeholder="Note Title" maxlength="28" type="text">
+          <input class="note-title" id="noteTitle" placeholder="Note Title" maxlength="28" type="text">
         </div>
         <div class="row">
-          <textarea class="note-textarea" id = "noteText" placeholder="Note Text" rows="4" cols="50"></textarea>
+          <textarea class="note-textarea" id="noteText" placeholder="Note Text" rows="4" cols="50"></textarea>
         </div>
-        <div class = "row">
-          <button id = "submitButton">Submit</button>
+        <div class="row">
+          <button id="submitButton">Submit</button>
         </div>
       </div>
     </div>
@@ -50,38 +50,49 @@
     <!-- <script src="/assets/js/index.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+      let noteID = 0
       const getNotes = () => axios.get('/api/notes')
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           const { data: notes } = res
-          console.log(notes)
+          noteID = notes.length
+          console.log(noteID)
+          let count = 0
           notes.forEach(note => {
+            count++
             let newCard = document.createElement('div')
             newCard.innerHTML =
-            `
+              `
             <div class="card-body">
             <h5 class="card-title">${note.title}</h5>
             <p class="card-text">${note.text}</p>
+            <btn id = "deleteButton${count}" class="btn btn-primary">Delete Note</btn>
             </div>
             `
             document.getElementById('card').append(newCard)
           })
         })
-         .catch(err => console.error(err))
+        .catch(err => console.error(err))
 
-         document.getElementById('submitButton').addEventListener('click', event => {
-           event.preventDefault()
-           let noteTitle = document.getElementById('noteTitle').value
-           let noteText = document.getElementById('noteText').value
-           let noteToPost = {title: noteTitle, text: noteText}
-           
-           axios.post('/api/notes', noteToPost)
-           .then(() => {
-             location.reload()
+      document.getElementById('submitButton').addEventListener('click', event => {
+        event.preventDefault()
+        let noteTitle = document.getElementById('noteTitle').value
+        let noteText = document.getElementById('noteText').value
+        let noteToPost = { id: noteID + 1, title: noteTitle, text: noteText }
+
+        axios.post('/api/notes', noteToPost)
+          .then(() => {
+            location.reload()
             getNotes()
-           })
-         })
-         getNotes()
+          })
+      })
+      getNotes()
+
+      document.addEventListener('click', event => {
+        if (event.target.className === 'btn-primary') { 
+          console.log('hi')
+        }
+      })
     </script>
 
 </body>
