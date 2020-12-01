@@ -24,9 +24,7 @@ router.delete('/notes/:id', (req, res) => {
     }
     
   })
-  console.log(notes)
-  
-
+ 
 })
 
 module.exports = router

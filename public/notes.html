@@ -90,6 +90,8 @@
       document.addEventListener('click', event => {
         if (event.target.className === 'delete btn btn-primary') {
           axios.delete(`/api/notes/${event.target.dataset.id}`)
+          location.reload()
+          getNotes()
         }
       })
     </script>
