@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/styles.css">
+  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
 </head>
 
 <body>
@@ -57,7 +57,7 @@
           const { data: notes } = res
           noteID = notes.length
           console.log(noteID)
-          
+
           notes.forEach(note => {
             let newCard = document.createElement('div')
             newCard.innerHTML =
@@ -74,7 +74,7 @@
         .catch(err => console.error(err))
 
       document.getElementById('submitButton').addEventListener('click', event => {
-        event.preventDefault()
+        // event.preventDefault()
         let noteTitle = document.getElementById('noteTitle').value
         let noteText = document.getElementById('noteText').value
         let noteToPost = { id: noteID + 1, title: noteTitle, text: noteText }
@@ -88,7 +88,7 @@
       getNotes()
 
       document.addEventListener('click', event => {
-        if (event.target.className === 'delete btn btn-primary') { 
+        if (event.target.className === 'delete btn btn-primary') {
           axios.delete(`/api/notes/${event.target.dataset.id}`)
         }
       })
