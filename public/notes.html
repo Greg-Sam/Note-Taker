@@ -53,10 +53,10 @@
           // console.log(res)
           const { data: notes } = res
           noteID = notes.length
-          console.log(noteID)
-
+          // console.log(noteID)
+          document.getElementById('card').innerHTML=''
           notes.forEach(note => {
-            let newCard = document.createElement('div')
+          let newCard = document.createElement('div')
             newCard.innerHTML =
               `
             <div class="card-body">
@@ -68,8 +68,7 @@
             document.getElementById('card').append(newCard)
           })
         })
-        .catch(err => console.error(err))
-
+      
       document.getElementById('submitButton').addEventListener('click', event => {
         // event.preventDefault()
         let noteTitle = document.getElementById('noteTitle').value
@@ -78,7 +77,9 @@
 
         axios.post('/api/notes', noteToPost)
           .then(() => {
-            location.reload()
+            // location.reload()
+            document.getElementById('noteTitle').value = ''
+            document.getElementById('noteText').value = ''
             getNotes()
           })
       })
@@ -87,7 +88,7 @@
       document.addEventListener('click', event => {
         if (event.target.className === 'delete btn btn-primary') {
           axios.delete(`/api/notes/${event.target.dataset.id}`)
-          location.reload()
+        
           getNotes()
         }
       })
